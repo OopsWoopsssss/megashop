@@ -27,5 +27,6 @@ pnpm-debug.log*
 *.pot
 *.pyc
 __pycache__
+shop_backend/main/__pycache__
 db.sqlite3
 media
