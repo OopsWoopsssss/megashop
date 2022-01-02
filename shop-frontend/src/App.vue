@@ -36,7 +36,7 @@ export default {
     },
     async loadProduct() {
       let apaaaa = await axios.get('http://127.0.0.1:8000/api/v1/product/')
-      console.log(apaaaa)
+      console.log(apaaaa.data)
       // this.listProduct = await fetch('http://127.0.0.1:8000/api/v1/product/')
       //     .then(response => response.json())
       //     .then(data => console.log(data[0].name))
