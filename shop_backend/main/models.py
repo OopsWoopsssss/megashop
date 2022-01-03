@@ -39,7 +39,7 @@ class Product(models.Model):
 class ProductShots(models.Model):
     """Снимки товара"""
     image = models.ImageField('Снимки', upload_to='product_shots/')
-    product = models.ForeignKey(Product, verbose_name='Продукты', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='Продукты', on_delete=models.CASCADE, related_name='shots')
 
     class Meta:
         verbose_name = 'Снимки товара'
