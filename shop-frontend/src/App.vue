@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="header">
-      <div class="container">
+      <div class="container-md">
         <div class="header-content">
           <div>
             типо шапка

@@ -1,11 +1,24 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-3" v-for="product in products" v-bind:key="product.id">
-        <p>{{ product.id }}</p>
-        <p>{{ product.description }}</p>
-        <p>{{ product.price }}</p>
-        <p>{{ product.category }}</p>
+        <div class="card">
+          <img class="card-img-top" v-bind:src="product.poster" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">
+              {{ product.title }}
+            </h4>
+            <router-link v-bind:to="product.category">
+              <b-badge variant="secondary">{{ product.category }}</b-badge>
+            </router-link>
+
+            <p class="card-text">
+              {{ product.description }}
+            </p>
+            <p>{{ product.price }}</p>
+            <a href="#!" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -53,6 +66,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  //.badge {
+  //  &-secondary {
+  //    color: #fff;
+  //    background-color: #007bff;
+  //  }
+  //}
 </style>

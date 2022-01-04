@@ -6,6 +6,9 @@
         <router-link v-bind:to="category.name">{{ category.name }}</router-link>
       </li>
     </ul>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -32,6 +35,10 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+ .list {
+   &-item {
+     background-color: red;
+   }
+ }
 </style>
