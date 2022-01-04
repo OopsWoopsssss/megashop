@@ -13,9 +13,11 @@ class CategoryListSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     """Вывод всех товаров"""
 
+    category = serializers.SlugRelatedField(slug_field="name", read_only=True)
+
     class Meta:
         model = Product
-        fields = ('id', 'title', 'poster', 'price')
+        fields = ('id', 'title', 'poster', 'price', 'category')
 
 
 class ProductShotsListSerializer(serializers.ModelSerializer):
