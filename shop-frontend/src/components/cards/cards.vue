@@ -9,12 +9,11 @@
         <router-link v-bind:to="product.category">
           <b-badge variant="secondary">{{ product.category }}</b-badge>
         </router-link>
-
-        <p class="card-text">
-          {{ product.description }}
-        </p>
-        <p>{{ product.price }}</p>
-        <router-link v-bind:to="'/Product/' + product.title" class="btn btn-primary">Go somewhere</router-link>
+        <p class="mt-3">{{ product.price }} р.</p>
+        <div class="d-flex justify-content-between">
+          <router-link v-bind:to="'/Product/' + product.id" class="btn btn-primary">Подробнее</router-link>
+          <button type="button" class="btn btn-primary">В корзину</button>
+        </div>
       </div>
     </div>
   </div>

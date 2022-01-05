@@ -20,7 +20,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li v-for="category in categoryList.data" :key="category.id">
-                  <router-link class="dropdown-item" v-bind:to="category.name">{{ category.name }}</router-link>
+                  <router-link class="dropdown-item" v-bind:to="'/' + category.name">{{ category.name }}</router-link>
                 </li>
               </ul>
             </li>

@@ -5,6 +5,7 @@ import mainPage from "../components/mainPage";
 import cardProducts from "../components/cards/cardProducts";
 
 const routes = [
+
     { path: '/Product/:idProducts', component: cardProducts, props: true, },
 
     { path: '/', component: mainPage },
