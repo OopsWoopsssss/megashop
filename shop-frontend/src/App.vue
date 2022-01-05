@@ -1,15 +1,6 @@
 <template>
   <div id="app">
-    <nav class="header">
-      <div class="container-md">
-        <div class="header-content">
-          <div>
-            типо шапка
-          </div>
-          <router-link to="/Categories">Categories</router-link>
-        </div>
-      </div>
-    </nav>
+    <app-header></app-header>
     <div class="container">
       <router-view></router-view>
     </div>
@@ -17,6 +8,7 @@
 </template>
 
 <script>
+import appHeader from "./components/header/header";
 export default {
   name: 'App',
   data() {
@@ -28,21 +20,11 @@ export default {
 
   },
   components: {
+    appHeader,
   },
 }
 </script>
 
 <style>
-  .header {
-    background-color: black;
-    color: white;
-    padding: 10px;
-  }
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-  }
-  .header a {
-    color: white;
-  }
+
 </style>

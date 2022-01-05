@@ -1,24 +1,13 @@
 <template>
   <div>
     <div class="row mt-5">
-      <div class="col-3" v-for="product in products" v-bind:key="product.id">
-        <div class="card">
-          <img class="card-img-top" v-bind:src="product.poster" alt="Card image cap">
-          <div class="card-body">
-            <h4 class="card-title">
-              {{ product.title }}
-            </h4>
-            <router-link v-bind:to="product.category">
-              <b-badge variant="secondary">{{ product.category }}</b-badge>
-            </router-link>
-
-            <p class="card-text">
-              {{ product.description }}
-            </p>
-            <p>{{ product.price }}</p>
-            <a href="#!" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
+      <cards v-if="products.length" v-bind:products="products"></cards>
+      <div v-else class="col-12 text-center">
+        <h2>
+          <img src="https://img.icons8.com/ios/50/000000/cute-monster.png"/>
+          Товаров еще не завезли
+          <img src="https://img.icons8.com/ios/50/000000/cute-monster.png"/>
+        </h2>
       </div>
     </div>
   </div>
@@ -27,32 +16,26 @@
 <script>
 import axios from "axios";
 
+import cards from "../cards/cards";
+
 export default {
   name: "CategoryBody",
   props: ['nameCategory'],
+  emits: ['products'],
   data() {
     return {
       listProduct: [],
     }
   },
-
   mounted() {
     this.loadProductList();
 
   },
-
-  beforeUpdate() {
-    console.log('mounted')
-    console.log(this.listProduct.data)
-  },
-
   methods: {
     async loadProductList() {
       this.listProduct = await axios.get('http://127.0.0.1:8000/api/v1/products/?format=json')
-      console.log(this.listProduct.data)
     },
   },
-
   computed:{
     products() {
       if (this.listProduct.data) {
@@ -62,7 +45,9 @@ export default {
     }
   },
 
-
+  components: {
+    cards,
+  }
 }
 </script>
 

@@ -31,14 +31,9 @@ export default {
       this.categoryList = await axios.get('http://127.0.0.1:8000/api/v1/category/?format=json')
     },
   }
-
 }
 </script>
 
 <style lang="scss" scoped>
- .list {
-   &-item {
-     background-color: red;
-   }
- }
+
 </style>
