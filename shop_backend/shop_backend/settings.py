@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'ckeditor',
     'ckeditor_uploader',
+    'drf_yasg',
 
     'main',
 ]
