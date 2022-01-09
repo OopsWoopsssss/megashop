@@ -22,7 +22,7 @@ class ProductListView(APIView):
         product = Product.objects.all().annotate(
             rating_user=models.Count("ratings", filter=models.Q(ratings__ip=get_client_ip(request)))
         ).annotate(
-            middle_star=models.Sum(models.F('ratings__star')) / models.Count(models.F('ratings'))
+            middle_star=models.Sum(models.F('ratings__star__value')) / models.Count(models.F('ratings'))
         )
         serializer = ProductListSerializer(product, many=True)
         return Response(serializer.data)

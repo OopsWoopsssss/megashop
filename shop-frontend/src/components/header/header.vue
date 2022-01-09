@@ -46,11 +46,12 @@ export default {
   },
   mounted() {
     this.loadCategoryList();
+    console.log(this.categoryList)
   },
 
   methods: {
     async loadCategoryList() {
-      this.categoryList = await axios.get('http://127.0.0.1:8000/api/v1/category/?format=json')
+      this.categoryList = await axios.get('http://127.0.0.1:8000/api/v1/category/')
     },
   }
 }
