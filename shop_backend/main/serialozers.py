@@ -7,8 +7,6 @@ from .models import Category, Product, ProductShots, Review, Rating
 class CategoryListSerializer(serializers.ModelSerializer):
     """Вывод всех категорий товара"""
 
-    products_categories = serializers.SlugRelatedField(slug_field="title", read_only=True, many=True)
-
     class Meta:
         model = Category
         fields = "__all__"
