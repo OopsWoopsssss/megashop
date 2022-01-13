@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import CategoryBody from "../components/category/CategoryBody";
 import mainPage from "../components/mainPage";
-import cardProducts from "../components/cards/cardProducts";
+import cardProduct from "../components/cards/cardProduct";
 
 const routes = [
 
-    { path: '/Product/:idProducts', component: cardProducts, props: true, },
+    { path: '/Product/:idProducts', component: cardProduct, props: true, },
 
     { path: '/', component: mainPage },
 

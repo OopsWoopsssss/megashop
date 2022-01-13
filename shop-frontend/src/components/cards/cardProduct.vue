@@ -18,29 +18,26 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: "cardProducts",
+  name: "cardProduct",
   props: ['idProducts'],
     data() {
     return {
-      Products: [],
     }
   },
   mounted() {
-    this.loadProductList();
-
+    this.GET_PRODUCT_LIST()
   },
   methods: {
-    async loadProductList() {
-      this.Products = await axios.get('http://127.0.0.1:8000/api/v1/products/?format=json')
-    },
+    ...mapActions(['GET_PRODUCT_LIST'])
   },
   computed:{
+    ...mapGetters(['PRODUCTS']),
     product() {
-      if (this.Products.data) {
-        return this.Products.data.find(e => e.id == this.idProducts)
+      if (this.PRODUCTS) {
+        return this.PRODUCTS.find(e => e.id == this.idProducts)
       }
       return true
     }

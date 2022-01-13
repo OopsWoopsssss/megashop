@@ -1,7 +1,9 @@
 <template>
-  <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="product in products" v-bind:key="product.id">
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" v-for="product in products" v-bind:key="product.id">
     <div class="card">
-      <img class="card-img-top" v-bind:src="'http://127.0.0.1:8000' + product.poster" alt="Card image cap">
+      <div class="card-img-top"
+           v-bind:style="`background-image: url(${'http://127.0.0.1:8000' + product.poster})`">
+      </div>
       <div class="card-body">
         <h4 class="card-title">
           {{ product.title }}
@@ -27,5 +29,9 @@ export default {
 </script>
 
 <style scoped>
-
+  .card-img-top {
+    padding-bottom: 60%;
+    background-size: cover;
+    background-position: center;
+  }
 </style>

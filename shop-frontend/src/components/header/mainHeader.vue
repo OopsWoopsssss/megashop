@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="main-header">
     <nav class="navbar navbar-expand-lg">
       <div class="container-md">
         <router-link class="navbar-brand" to="/">
@@ -14,12 +14,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item dropdown">
+            <li class="nav-item nav-item--categories dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Категории
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li v-for="category in categoryList.data" :key="category.id">
+                <li v-for="category in CATEGORIES" :key="category.id">
                   <router-link class="dropdown-item" v-bind:to="'/' + category.name">{{ category.name }}</router-link>
                 </li>
               </ul>
@@ -35,30 +35,28 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: "header",
   data() {
     return {
-      categoryList: [],
     }
   },
   mounted() {
-    this.loadCategoryList();
-    console.log(this.categoryList)
+    this.GET_CATEGORIES_LIST()
   },
-
   methods: {
-    async loadCategoryList() {
-      this.categoryList = await axios.get('http://127.0.0.1:8000/api/v1/category/')
-    },
-  }
+    ...mapActions(['GET_CATEGORIES_LIST']),
+  },
+  computed: {
+    ...mapGetters(['CATEGORIES'])
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  .header {
+  .main-header {
     .navbar {
       background-color: black;
       color: white;
@@ -124,7 +122,14 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-  .header a {
+  .main-header a {
     color: white;
+  }
+  .nav-item {
+    &--categories {
+      .router-link-active {
+        background-color: gray;
+      }
+    }
   }
 </style>
