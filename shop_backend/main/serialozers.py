@@ -1,7 +1,7 @@
 from abc import ABC
 
 from rest_framework import serializers
-from .models import Category, Product, ProductShots, Review, Rating, RatingStar
+from .models import Category, Product, ProductShots, Review, Rating
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
@@ -60,12 +60,10 @@ class CreateRatingSerializer(serializers.ModelSerializer):
         fields = ("star", "product")
 
     def create(self, validated_data):
-        star = validated_data.get('star')
-        star = RatingStar.objects.get(value=star.value)
         rating = Rating.objects.update_or_create(
             ip=validated_data.get('ip', None),
             product=validated_data.get('product', None),
-            defaults={'star': star}
+            star=validated_data.get('star', None),
         )
         return rating
 

@@ -4,7 +4,7 @@ from django import forms
 
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
-from .models import Category, Product, ProductShots, Review, Rating, RatingStar
+from .models import Category, Product, ProductShots, Review, Rating
 
 
 class ReviewInline(admin.TabularInline):
@@ -78,10 +78,10 @@ class ReviewAdmin(admin.ModelAdmin):
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
     """Рейтинг"""
-    list_display = ("star", "product", "ip")
+    # list_display = ("star", "product", "ip")
 
 
-admin.site.register(RatingStar)
+# admin.site.register(RatingStar)
 
 admin.site.site_title = 'Админка MEGA SHOP'
 admin.site.site_header = 'Админка MEGA SHOP'
