@@ -28,7 +28,6 @@ class ProductListView(APIView):
         return Response(serializer.data)
 
 
-
 class ReviewCreateView(APIView):
     """Добавление отзыва к продукту"""
 
@@ -41,7 +40,6 @@ class ReviewCreateView(APIView):
 
 class AddStarRatingView(APIView):
     """Добавление рейтинга продукту"""
-
 
     def post(self, request):
         serializer = CreateRatingSerializer(data=request.data)
