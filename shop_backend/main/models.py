@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.urls import reverse
 
@@ -64,23 +65,25 @@ class Review(models.Model):
         verbose_name_plural = "Отзывы"
 
 
-class RatingStar(models.Model):
-    """Звезда рейтинга"""
-    value = models.SmallIntegerField("Значение", default=0)
+# class RatingStar(models.Model):
+#     """Звезда рейтинга"""
+#     value = models.SmallIntegerField("Значение", default=0)
+#
+#     def __str__(self):
+#         return f'{self.value}'
 
-    def __str__(self):
-        return f'{self.value}'
-
-    class Meta:
-        verbose_name = "Звезда рейтинга"
-        verbose_name_plural = "Звезды рейтинга"
-        ordering = ["-value"]
+    # class Meta:
+    #     verbose_name = "Звезда рейтинга"
+    #     verbose_name_plural = "Звезды рейтинга"
+    #     ordering = ["-value"]
 
 
 class Rating(models.Model):
     """Рейтинг"""
     ip = models.CharField("IP адрес", max_length=15)
-    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    # star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    star = models.PositiveSmallIntegerField(
+        "Звезда", validators=[MaxValueValidator(5)], default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="продукт", related_name='ratings')
 
     def __str__(self):
