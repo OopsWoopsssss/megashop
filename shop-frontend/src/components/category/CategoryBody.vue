@@ -14,9 +14,8 @@
 </template>
 
 <script>
-import axios from "axios";
-
 import cards from "../cards/cards";
+import { mapActions , mapGetters } from "vuex";
 
 export default {
   name: "CategoryBody",
@@ -28,21 +27,26 @@ export default {
     }
   },
   mounted() {
-    this.loadProductList();
+    this.GET_PRODUCT_LIST();
 
   },
   methods: {
-    async loadProductList() {
-      this.listProduct = await axios.get('http://127.0.0.1:8000/api/v1/products/?format=json')
-    },
+    ...mapActions(['GET_PRODUCT_LIST'])
   },
   computed:{
+    ...mapGetters(['PRODUCTS']),
     products() {
-      if (this.listProduct.data) {
-        return this.listProduct.data.filter(e => e.category == this.nameCategory)
+      if (this.PRODUCTS) {
+        return this.PRODUCTS.filter(e => {
+          for(let key in e.category) {
+            if (this.nameCategory == e.category[key]) {
+              return true
+            }
+          }
+        })
       }
       return true
-    }
+    },
   },
 
   components: {

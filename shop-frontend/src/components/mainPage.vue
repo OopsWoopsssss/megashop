@@ -4,30 +4,29 @@
     <hr>
     <h2>Все товары</h2>
     <div class="row mt-5">
-      <cards v-bind:products="listProduct.data"></cards>
+      <cards v-bind:products="PRODUCTS"></cards>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions, mapGetters } from 'vuex'
 import cards from "./cards/cards";
 
 export default {
   name: "mainPage",
     data() {
     return {
-      listProduct: [],
     }
   },
   mounted() {
-    this.loadProductList();
-
+    this.GET_PRODUCT_LIST()
   },
   methods: {
-    async loadProductList() {
-      this.listProduct = await axios.get('http://127.0.0.1:8000/api/v1/products/?format=json')
-    },
+    ...mapActions(['GET_PRODUCT_LIST']),
+  },
+  computed: {
+    ...mapGetters(['PRODUCTS']),
   },
   components: {
     cards,
