@@ -3,9 +3,10 @@ from django.db import models
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
 
 from .serialozers import CategoryListSerializer, ProductListSerializer, ReviewCreateSerializer, CreateRatingSerializer
-from .models import Category, Product
+from .models import Category, Product, Rating
 from .service import get_client_ip
 
 
@@ -38,15 +39,10 @@ class ReviewCreateView(APIView):
         return Response(status=201)
 
 
-class AddStarRatingView(APIView):
+class AddStarRatingViewSet(ModelViewSet):
     """Добавление рейтинга продукту"""
+    serializer_class = CreateRatingSerializer
 
-    def post(self, request):
+    def perform_create(self, serializer):
+        serializer.save(ip=get_client_ip(self.request))
 
-        serializer = CreateRatingSerializer(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save(ip=get_client_ip(request))
-            return Response(status=201)
-        else:
-            return Response(status=400)
