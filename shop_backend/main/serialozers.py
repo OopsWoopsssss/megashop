@@ -1,7 +1,6 @@
-from abc import ABC
-
 from rest_framework import serializers
-from .models import Category, Product, ProductShots, Review, Rating
+from djoser.serializers import UserCreateSerializer, TokenSerializer, UserSerializer
+from .models import Category, Product, ProductShots, Review, Rating, Profile
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
@@ -34,22 +33,32 @@ class RecursiveSerializer(serializers.Serializer):
         return serializer.data
 
 
-class ReviewCreateSerializer(serializers.ModelSerializer):
-    """Добавление отзыва"""
-
-    class Meta:
-        model = Review
-        fields = "__all__"
-
-
 class ReviewSerializer(serializers.ModelSerializer):
     """Вывод отзывов"""
+    user = serializers.SlugRelatedField(slug_field='username', read_only=True)
     children = RecursiveSerializer(many=True)
 
     class Meta:
         list_serializer_class = FilterReviewListSerializer
         model = Review
-        fields = ("name", "text", "children")
+        fields = ("user", "text", "children")
+
+
+class ReviewCreateSerializer(serializers.ModelSerializer):
+    """Добавление отзыва"""
+
+    class Meta:
+        model = Review
+        fields = ('text', 'product', 'parent')
+
+    def create(self, validated_data):
+        review = Review.objects.create(
+            user=self.context['request'].user,
+            text=validated_data.get('text', None),
+            parent=validated_data.get('parent', None),
+            product=validated_data.get('product', None),
+        )
+        return review
 
 
 class CreateRatingSerializer(serializers.ModelSerializer):
@@ -61,9 +70,11 @@ class CreateRatingSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         rating, _ = Rating.objects.update_or_create(
-            ip=validated_data.get('ip', None),
+            user=self.context['request'].user,
             product=validated_data.get('product', None),
-            star=validated_data.get('star', None),
+            defaults={
+                'star': validated_data.get('star', None),
+            }
         )
         return rating
 

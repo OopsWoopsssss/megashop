@@ -11,7 +11,7 @@ class ReviewInline(admin.TabularInline):
     """Отзывы на странице продукта"""
     model = Review
     extra = 1
-    readonly_fields = ("name", "email")
+    readonly_fields = ("user", "text")
 
 
 @admin.register(Category)
@@ -71,8 +71,8 @@ class ProductShotsAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     """Отзывы к продукту"""
-    list_display = ("name", "email", "parent", "product", "id")
-    readonly_fields = ("name", "email")
+    list_display = ("user", "parent", "product", "id")
+    readonly_fields = ("user", "text")
 
 
 @admin.register(Rating)
