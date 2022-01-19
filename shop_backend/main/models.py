@@ -1,6 +1,7 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import AbstractUser
 
 
 class Category(models.Model):
@@ -47,41 +48,18 @@ class ProductShots(models.Model):
         verbose_name_plural = 'Снимки товара'
 
 
-class Review(models.Model):
-    """Отзывы"""
-    email = models.EmailField()
-    name = models.CharField("Имя", max_length=100)
-    text = models.TextField("Сообщение", max_length=5000)
-    parent = models.ForeignKey(
-        'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True, related_name='children'
-    )
-    product = models.ForeignKey(Product, verbose_name="продукт", on_delete=models.CASCADE, related_name="reviews")
+class Profile(AbstractUser):
+    profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
+
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'profile_pic']
 
     def __str__(self):
-        return f"{self.name} - {self.product}"
-
-    class Meta:
-        verbose_name = "Отзыв"
-        verbose_name_plural = "Отзывы"
-
-
-# class RatingStar(models.Model):
-#     """Звезда рейтинга"""
-#     value = models.SmallIntegerField("Значение", default=0)
-#
-#     def __str__(self):
-#         return f'{self.value}'
-
-    # class Meta:
-    #     verbose_name = "Звезда рейтинга"
-    #     verbose_name_plural = "Звезды рейтинга"
-    #     ordering = ["-value"]
+        return self.username
 
 
 class Rating(models.Model):
     """Рейтинг"""
-    ip = models.CharField("IP адрес", max_length=15)
-    # star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     star = models.PositiveSmallIntegerField(
         "Звезда", validators=[MaxValueValidator(5)], default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="продукт", related_name='ratings')
@@ -92,3 +70,20 @@ class Rating(models.Model):
     class Meta:
         verbose_name = "Рейтинг"
         verbose_name_plural = "Рейтинги"
+
+
+class Review(models.Model):
+    """Отзывы"""
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    text = models.TextField("Сообщение", max_length=5000)
+    parent = models.ForeignKey(
+        'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True, related_name='children'
+    )
+    product = models.ForeignKey(Product, verbose_name="продукт", on_delete=models.CASCADE, related_name="reviews")
+
+    def __str__(self):
+        return f"{self.user} - {self.product}"
+
+    class Meta:
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"

@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'drf_yasg',
+    'djoser',
+    'rest_framework.authtoken',
+    
 
     'main',
 ]
@@ -120,7 +123,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
@@ -146,11 +149,13 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8000'
 ]
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_RENDERER_CLASSES': (
-#         'rest_framework.renderers.YAMLRenderer',
-#     ),
-#     'DEFAULT_PARSER_CLASSES': (
-#         'rest_framework.parsers.YAMLParser',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     'django_filters.rest_framework.DjangoFilterBackend',
+    # ),
+}
+
+AUTH_USER_MODEL = 'main.Profile'
