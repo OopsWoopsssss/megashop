@@ -37,11 +37,12 @@ class ReviewSerializer(serializers.ModelSerializer):
     """Вывод отзывов"""
     user = serializers.SlugRelatedField(slug_field='username', read_only=True)
     children = RecursiveSerializer(many=True)
+    create_data = serializers.DateTimeField(format='%d/%m/%Y %H:%M')
 
     class Meta:
         list_serializer_class = FilterReviewListSerializer
         model = Review
-        fields = ("user", "text", "children")
+        fields = "__all__"
 
 
 class ReviewCreateSerializer(serializers.ModelSerializer):
@@ -87,6 +88,7 @@ class ProductListSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
     rating_user = serializers.BooleanField()
     middle_star = serializers.IntegerField()
+    discount_prise = serializers.DecimalField(decimal_places=2, max_digits=1000)
 
     class Meta:
         model = Product

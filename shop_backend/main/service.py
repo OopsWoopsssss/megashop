@@ -6,3 +6,7 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+def get_discount_prise(obj_list):
+    for obj in obj_list:
+        obj.discount_prise = obj.price-obj.price*obj.discount/100
