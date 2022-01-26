@@ -14,7 +14,7 @@ from .serialozers import (
     CreateRatingSerializer,
 )
 from .models import Category, Product, Profile
-from .service import get_client_ip
+from .service import get_discount_prise
 
 
 class CategoryListView(generics.ListAPIView):
@@ -32,6 +32,7 @@ class ProductListView(APIView):
         ).annotate(
             middle_star=models.Sum(models.F('ratings__star')) / models.Count(models.F('ratings'))
         )
+        asd = get_discount_prise(product)
         serializer = ProductListSerializer(product, many=True)
         return Response(serializer.data)
 

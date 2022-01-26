@@ -17,7 +17,7 @@ class ReviewInline(admin.TabularInline):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Категории"""
-    list_display = ('id', 'name', 'url')
+    list_display = ('id', 'name',)
     list_display_links = ('name',)
 
 

@@ -7,7 +7,6 @@ from django.contrib.auth.models import AbstractUser
 class Category(models.Model):
     """Категгории"""
     name = models.CharField('Категория', max_length=150)
-    url = models.SlugField(max_length=160, unique=True)
 
     def __str__(self):
         return self.name
@@ -24,7 +23,10 @@ class Product(models.Model):
     poster = models.ImageField('Постер', upload_to='product/')
     price = models.DecimalField('Цена', default=0, decimal_places=2, max_digits=1000)
     category = models.ManyToManyField(Category, verbose_name='Категория', related_name='products_categories')
-    url = models.SlugField(max_length=160, unique=True)
+    quantity = models.PositiveSmallIntegerField('Количество на складе', default=0)
+    sale = models.BooleanField('Акция', default=False)
+    discount = models.PositiveSmallIntegerField('Процент скидки', default=0)
+
 
     def __str__(self):
         return self.title
@@ -64,6 +66,7 @@ class Rating(models.Model):
         "Звезда", validators=[MaxValueValidator(5)], default=0)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="продукт", related_name='ratings')
 
+
     def __str__(self):
         return f"{self.star} - {self.product}"
 
@@ -80,6 +83,7 @@ class Review(models.Model):
         'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True, related_name='children'
     )
     product = models.ForeignKey(Product, verbose_name="продукт", on_delete=models.CASCADE, related_name="reviews")
+    create_data = models.DateTimeField('Дата публикации', auto_now_add=True)
 
     def __str__(self):
         return f"{self.user} - {self.product}"
@@ -87,3 +91,5 @@ class Review(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+
+
