@@ -28,7 +28,6 @@ export default {
   },
   mounted() {
     this.GET_PRODUCT_LIST();
-
   },
   methods: {
     ...mapActions(['GET_PRODUCT_LIST'])
