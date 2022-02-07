@@ -83,12 +83,16 @@ class CreateRatingSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     """Вывод всех товаров"""
 
+    poster_url = serializers.SerializerMethodField('get_image_url')
     category = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
     shots = ProductShotsListSerializer(many=True)
     reviews = ReviewSerializer(many=True)
     rating_user = serializers.BooleanField()
     middle_star = serializers.IntegerField()
     discount_prise = serializers.DecimalField(decimal_places=2, max_digits=1000)
+
+    def get_image_url(self, obj):
+        return obj.poster.url
 
     class Meta:
         model = Product
