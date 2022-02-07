@@ -70,7 +70,9 @@
         <p>цена: {{ product.price }}р</p>
       </div>
       <div>
-        <button type="button" class="btn btn-primary">В корзину</button>
+        <button type="submit" class="btn btn-1 hover--down">
+          <span>В корзину</span>
+        </button>
       </div>
     </div>
     <commentsList v-bind:commentList="product.reviews"></commentsList>
