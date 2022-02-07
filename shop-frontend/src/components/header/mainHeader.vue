@@ -12,7 +12,7 @@
             <span class="navbar-toggler-icon"></span>
           </div>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item nav-item--categories dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,6 +28,11 @@
               <a class="nav-link active" aria-current="page" href="#">О нас</a>
             </li>
           </ul>
+          <div>
+            <router-link class="ms-4" to="/signup">Регистрация</router-link>
+            <router-link class="ms-4" to="/auth">Авторизация</router-link>
+            <exit_privat></exit_privat>
+          </div>
         </div>
       </div>
     </nav>
@@ -36,6 +41,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import exit_privat from "../exit_privat/exit_privat";
 
 export default {
   name: "header",
@@ -52,6 +58,9 @@ export default {
   computed: {
     ...mapGetters(['CATEGORIES'])
   },
+  components: {
+    exit_privat,
+  }
 }
 </script>
 

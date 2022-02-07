@@ -1,0 +1,149 @@
+@import 'node_modules/bootstrap/scss/_functions.scss';
+@import 'node_modules/bootstrap/scss/_variables.scss';
+@import 'node_modules/bootstrap/scss/mixins/_breakpoints.scss';
+
+
+.btn {
+  position: relative;
+  display: inline-block;
+  width: auto; height: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  min-width: 150px;
+  padding: 0px;
+  &:active, &:hover, &:focus {
+    outline: 0!important;
+    outline-offset: 0;
+    box-shadow: none;
+  }
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+  }
+  span {
+    position: relative;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 15px 20px;
+    transition: 0.3s;
+    @include media-breakpoint-down(lg) {
+      padding: 10px 15px;
+    }
+  }
+
+  &-1 {
+    &::before {
+      background-color: #1C1F1E;
+      transition: 0.3s ease-out;
+    }
+    span {
+      color: #FFFFFF;
+      border: 1px solid #1C1F1E;
+      transition: 0.2s 0.1s;
+    }
+    span:hover {
+      color: #1C1F1E;
+      transition: 0.2s 0.1s;
+    }
+    &.hover {
+      &--down {
+        &::before {
+          bottom: 0; left: 0; right: 0;
+          height: 100%; width: 100%;
+        }
+        &:hover::before {
+          height: 0%;
+        }
+      }
+      &--up {
+        &::before {
+          top: 0;left: 0;right: 0;
+          height: 100%;width: 100%;
+        }
+        &:hover::before {
+          height: 0%;
+        }
+      }
+      &--left {
+        &::before {
+          top: 0; bottom: 0; left: 0;
+          height: 100%; width: 100%;
+        }
+        &:hover::before {
+          width: 0%;
+        }
+      }
+      &--right {
+        &::before {
+          top: 0;bottom: 0;right: 0;
+          height: 100%;width: 100%;
+        }
+        &:hover::before {
+          width: 0%;
+        }
+      }
+    }
+  }
+
+  &-2 {
+    background-color: #FFFFFF;
+    &::before {
+      background-color: #1C1F1E;
+      transition: 0.3s ease-out;
+    }
+    span {
+      color: #1C1F1E;
+      border: 1px solid #1C1F1E;
+      transition: 0.2s;
+      &:hover {
+        color: #FFFFFF;
+        transition: 0.2s 0.1s;
+      }
+    }
+    &.hover {
+      &--down {
+        &::before {
+          top: 0; left: 0; right: 0;
+          height: 0%; width: 100%;
+        }
+        &:hover::before {
+          height: 100%;
+        }
+      }
+      &--up {
+        &::before {
+          bottom: 0; left: 0; right: 0;
+          height: 0%; width: 100%;
+        }
+        &:hover::before {
+          height: 100%;
+        }
+      }
+      &--right {
+        &::before {
+          top: 0; bottom: 0; right: 0;
+          height: 100%; width: 0%;
+        }
+        &:hover::before {
+          width: 100%;
+        }
+      }
+      &--left {
+        &::before {
+          top: 0; bottom: 0; left: 0;
+          height: 100%; width: 0%;
+        }
+        &:hover::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

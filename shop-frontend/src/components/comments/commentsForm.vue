@@ -20,7 +20,9 @@
         </div>
       </div>
       <div class="col-12">
-        <button class="w-100 mt-2 btn btn-primary">Отправить</button>
+        <button class="w-100 mt-2 btn btn-1 hover--down">
+          <span>Отправить</span>
+        </button>
       </div>
     </form>
   </div>
