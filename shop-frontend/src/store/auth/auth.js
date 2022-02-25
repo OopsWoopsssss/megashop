@@ -23,7 +23,7 @@ export default ({
         "password": payload.password,
       }
       const json = JSON.stringify({...data});
-      axios.post('http://127.0.0.1:8000/auth/token/login', json, {
+      axios.post('http://localhost/auth/token/login', json, {
         headers: {
           'Content-Type': 'application/json'
         }

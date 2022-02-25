@@ -34,7 +34,7 @@ export default {
   methods: {
     go_office() {
       const token = localStorage.getItem('authToken');
-      axios.get('http://127.0.0.1:8000/auth/users/me/', {
+      axios.get('http://localhost/auth/users/me/', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Token ${token}`

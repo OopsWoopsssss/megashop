@@ -13,7 +13,7 @@ export default {
   },
   actions: {
     GET_PRODUCT_LIST({commit}) {
-      return axios('http://127.0.0.1:8000/api/v1/products/?format=json', {
+      return axios('http://localhost/api/v1/products/?format=json', {
         method: 'GET'
       }).then((productsList) => {
         commit('SET_PRODUCT', productsList.data);

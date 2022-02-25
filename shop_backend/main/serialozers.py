@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer, TokenSerializer, UserSerializer
-from .models import Category, Product, ProductShots, Review, Rating, Profile
+from .models import Category, Product, ProductShots, Review, Rating, Profile, Cart
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
@@ -89,11 +89,40 @@ class ProductListSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
     rating_user = serializers.BooleanField()
     middle_star = serializers.IntegerField()
-    discount_prise = serializers.DecimalField(decimal_places=2, max_digits=1000)
+    discount_prise = serializers.SerializerMethodField('get_discount_prise')
 
     def get_image_url(self, obj):
         return obj.poster.url
 
+    def get_discount_prise(self, obj):
+        obj.discount_prise = obj.price - obj.price * obj.discount / 100
+        return obj.discount_prise
+
     class Meta:
         model = Product
+        fields = "__all__"
+
+
+class ProductsCartSerializer(serializers.ModelSerializer):
+
+    poster_url = serializers.SerializerMethodField('get_image_url')
+    discount_prise = serializers.SerializerMethodField('get_discount_prise')
+
+    def get_image_url(self, obj):
+        return obj.poster.url
+
+    def get_discount_prise(self, obj):
+        obj.discount_prise = obj.price - obj.price * obj.discount / 100
+        return obj.discount_prise
+
+    class Meta:
+        model = Product
+        fields = ('title', 'poster_url','price','sale', 'discount_prise', )
+
+class CartListSerializer(serializers.ModelSerializer):
+
+    products = ProductsCartSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Cart
         fields = "__all__"

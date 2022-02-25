@@ -14,7 +14,7 @@ export default {
     exit() {
       const token = localStorage.getItem('authToken');
       console.log(token)
-      axios('http://127.0.0.1:8000/auth/token/logout/', {
+      axios('http://localhost/auth/token/logout/', {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,

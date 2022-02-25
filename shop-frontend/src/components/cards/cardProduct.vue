@@ -1,7 +1,7 @@
 <template>
   <div class="row mt-5" v-if="product">
     <div class="col-12 col-md-5">
-      <img class="img" v-bind:src="'http://127.0.0.1:8000' + product.poster" alt="image">
+      <img class="img" v-bind:src="product.poster" alt="image">
     </div>
     <div class="col-12 col-md-7 d-flex flex-column justify-content-between">
       <div>
@@ -108,7 +108,7 @@ export default {
       }
       console.log(params)
       const json = JSON.stringify({...params});
-      axios.post('http://127.0.0.1:8000/api/v1/rating/', json, {
+      axios.post('http://localhost:8000/api/v1/rating/', json, {
         headers: {
           'Content-Type': 'application/json'
         }

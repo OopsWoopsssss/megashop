@@ -1,7 +1,5 @@
 from django.db import models
-from djoser.views import UserViewSet
 from rest_framework import permissions
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
@@ -12,9 +10,9 @@ from .serialozers import (
     ProductListSerializer,
     ReviewCreateSerializer,
     CreateRatingSerializer,
+    CartListSerializer,
 )
-from .models import Category, Product, Profile
-from .service import get_discount_prise
+from .models import Category, Product, Cart
 
 
 class CategoryListView(generics.ListAPIView):
@@ -32,7 +30,6 @@ class ProductListView(APIView):
         ).annotate(
             middle_star=models.Sum(models.F('ratings__star')) / models.Count(models.F('ratings'))
         )
-        asd = get_discount_prise(product)
         serializer = ProductListSerializer(product, many=True)
         return Response(serializer.data)
 
@@ -54,4 +51,19 @@ class AddStarRatingViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+class CartListView(generics.GenericAPIView):
+    """Корзина"""
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        cart = Cart.objects.get(owner__id=user.id)
+        serializer = CartListSerializer(cart)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        cart = Cart.objects.get(owner__id=user.id)
+
 

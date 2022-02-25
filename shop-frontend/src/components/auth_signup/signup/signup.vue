@@ -40,7 +40,7 @@ export default {
           "password": this.signupPassword,
         }
       const json = JSON.stringify({...data});
-      axios.post('http://127.0.0.1:8000/auth/users/', json, {
+      axios.post('http://localhost/auth/users/', json, {
         headers: {
           'Content-Type': 'application/json'
         }

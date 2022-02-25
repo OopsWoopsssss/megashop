@@ -2,7 +2,7 @@
   <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" v-for="product in products" v-bind:key="product.id">
     <div class="card">
       <div class="card-img-top"
-           v-bind:style="`background-image: url(${'http://127.0.0.1:8000' + product.poster})`">
+           v-bind:style="`background-image: url(${product.poster})`">
       </div>
       <div class="card-body">
         <h4 class="card-title">

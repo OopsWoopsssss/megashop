@@ -92,4 +92,7 @@ class Review(models.Model):
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
 
+class Cart(models.Model):
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, verbose_name='Тровары', related_name='products')
 

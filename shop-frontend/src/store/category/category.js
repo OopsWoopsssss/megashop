@@ -13,7 +13,7 @@ export default ({
   },
   actions: {
     GET_CATEGORIES_LIST({commit}) {
-      return axios('http://127.0.0.1:8000/api/v1/category/', {
+      return axios('http://localhost/api/v1/category/', {
         method: 'GET'
       }).then((categoriesList) => {
         commit('SET_CATEGORIES', categoriesList.data);
